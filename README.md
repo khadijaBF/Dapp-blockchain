@@ -132,3 +132,4 @@ MIT License
 Pull requests are welcome! If you'd like to improve this DApp, feel free to fork and contribute.
 
 ```
+"All the details are presented in the PDF report."
