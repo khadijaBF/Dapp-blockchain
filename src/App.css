@@ -1,0 +1,806 @@
+/* ================= */
+/* DESIGN SYSTEM */
+/* ================= */
+:root {
+  /* Color Palette - Blockchain-inspired */
+  --primary: #3498db;      /* Main brand color */
+  --primary-dark: #2980b9;
+  --primary-light: #5dade2;
+  --accent: #f39c12;       /* Accent color (ETH-inspired) */
+  --accent-dark: #d35400;
+  --accent-light: #f8c471;
+  --success: #2ecc71;
+  --danger: #e74c3c;
+  --warning: #f1c40f;
+  --dark: #121212;
+  --dark-gray: #1e1e1e;
+  --medium-gray: #2d2d2d;
+  --light-gray: #3d3d3d;
+  --text-primary: #f8f9fa;
+  --text-secondary: rgba(248, 249, 250, 0.85);
+  --text-muted: rgba(248, 249, 250, 0.65);
+  --border: rgba(255, 255, 255, 0.12);
+  
+  /* Card & Container Backgrounds */
+  --card-bg: rgba(30, 30, 30, 0.6);
+  --topbar-bg: rgba(18, 18, 18, 0.8);
+  
+  /* Spacing System */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-xxl: 3rem;
+  
+  /* Border Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  
+  /* Typography */
+  --font-heading: 'Inter', 'Segoe UI', -apple-system, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.2);
+  --shadow-inner: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+  
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s ease;
+  --transition-slow: 0.4s ease;
+  
+  /* Z-index layers */
+  --z-below: -1;
+  --z-normal: 0;
+  --z-above: 1;
+  --z-topbar: 100;
+  --z-modal: 1000;
+  --z-toast: 2000;
+}
+
+/* ================= */
+/* BASE STYLES */
+/* ================= */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-primary);
+  background: linear-gradient(135deg, #131313, #2b2b2b);
+  background-attachment: fixed;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Subtle blockchain network grid background pattern */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 25px 25px, rgba(255, 255, 255, 0.04) 2px, transparent 0),
+    radial-gradient(circle at 75px 75px, rgba(255, 255, 255, 0.04) 2px, transparent 0);
+  background-size: 100px 100px;
+  pointer-events: none;
+  z-index: var(--z-below);
+}
+
+.app-container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: var(--space-md);
+  box-sizing: border-box;
+}
+
+/* Section headers */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  margin-top: 0;
+  color: var(--text-primary);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+h1 { font-size: 2rem; }
+h2 { 
+  font-size: 1.75rem; 
+  margin-bottom: var(--space-xl);
+  position: relative;
+  display: inline-block;
+}
+
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: var(--accent);
+  border-radius: 2px;
+}
+
+h3 { font-size: 1.3rem; }
+
+/* ================= */
+/* TOPBAR / NAVIGATION */
+/* ================= */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-topbar);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-md) var(--space-lg);
+  background-color: var(--topbar-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: var(--space-xl);
+  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+.topbar h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.topbar h1::before {
+  content: '🛒';
+  font-size: 1.3rem;
+}
+
+/* Active account info */
+.topbar > div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.topbar p {
+  margin: 0 0 var(--space-xs) 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Navigation */
+nav {
+  display: flex;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+nav a {
+  color: var(--text-primary);
+  text-decoration: none;
+  font-weight: 600;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-normal);
+  position: relative;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid transparent;
+}
+
+nav a:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+  border-color: var(--border);
+}
+
+nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--primary);
+  transition: all var(--transition-normal);
+  transform: translateX(-50%);
+  opacity: 0;
+}
+
+nav a:hover::after {
+  width: 80%;
+  opacity: 1;
+}
+
+/* Active navigation link */
+nav a.active {
+  background: rgba(var(--primary), 0.15);
+  border-color: rgba(var(--primary), 0.3);
+}
+
+/* ================= */
+/* BUTTONS */
+/* ================= */
+.connect-button,
+.disconnect-button {
+  padding: var(--space-sm) var(--space-xl);
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  box-shadow: var(--shadow-sm);
+}
+
+.connect-button {
+  background: var(--success);
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.connect-button::before {
+  content: '🔗';
+  font-size: 0.9rem;
+}
+
+.disconnect-button {
+  background: var(--danger);
+  color: white;
+}
+
+.connect-button:hover,
+.disconnect-button:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.connect-button:active,
+.disconnect-button:active {
+  transform: translateY(0);
+}
+
+/* ================= */
+/* FORMS AND INPUTS */
+/* ================= */
+.form-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  margin: 0 auto var(--space-xl);
+  width: 100%;
+  max-width: 500px;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.form-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+}
+
+input {
+  width: 100%;
+  padding: var(--space-md);
+  margin-bottom: var(--space-md);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: rgba(0, 0, 0, 0.2);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  transition: all var(--transition-normal);
+  box-shadow: var(--shadow-inner);
+  box-sizing: border-box;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.3);
+}
+
+input::placeholder {
+  color: var(--text-muted);
+}
+
+.form-card button {
+  width: 100%;
+  padding: var(--space-md);
+  border: none;
+  border-radius: var(--radius-md);
+  background: var(--primary);
+  color: white;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  margin-top: var(--space-sm);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.form-card button::before {
+  content: '➕';
+  font-size: 1rem;
+}
+
+.form-card button:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ================= */
+/* PRODUCT CARDS AND LISTINGS */
+/* ================= */
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-lg);
+  margin-top: var(--space-lg);
+}
+
+.product-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-normal);
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(var(--primary), 0.3);
+}
+
+/* Subtle pattern overlay for product cards */
+.product-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(
+    30deg,
+    rgba(255, 255, 255, 0.02) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.02) 50%,
+    rgba(255, 255, 255, 0.02) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 8px 8px;
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.product-card h3 {
+  margin-top: 0;
+  margin-bottom: var(--space-md);
+  color: var(--accent);
+  font-size: 1.25rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: var(--space-sm);
+}
+
+.product-card p {
+  margin: var(--space-xs) 0;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+.product-card p strong {
+  font-size: 1.1rem;
+  color: var(--accent);
+  display: block;
+  margin: var(--space-sm) 0;
+}
+
+/* Seller/Owner info with indicator */
+.product-card p:nth-of-type(3),
+.product-card p:nth-of-type(4) {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-xs);
+  word-break: break-all;
+}
+
+/* Product status indicator */
+.product-card p:last-of-type {
+  margin-top: auto;
+  padding-top: var(--space-sm);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+/* Status indicator dot */
+.product-card p:last-of-type::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--success);
+  margin-right: var(--space-xs);
+}
+
+.product-card p:last-of-type:contains('Sold')::before {
+  background-color: var(--danger);
+}
+
+.product-card button {
+  margin-top: var(--space-md);
+  padding: var(--space-sm) var(--space-lg);
+  border: none;
+  border-radius: var(--radius-md);
+  background: var(--primary);
+  color: white;
+  font-family: var(--font-body);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.product-card button::before {
+  content: '🛒';
+  font-size: 0.9rem;
+}
+
+.product-card button:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.product-card button:disabled {
+  background-color: var(--light-gray);
+  cursor: not-allowed;
+  opacity: 0.6;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Loading state */
+.loading-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  width: 100%;
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+}
+
+.loading-indicator::after {
+  content: '⟳';
+  display: inline-block;
+  margin-left: var(--space-sm);
+  animation: rotate 1s linear infinite;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ================= */
+/* TRANSACTION HISTORY & MY PRODUCTS */
+/* ================= */
+.transaction-container,
+.my-products-container {
+  margin-bottom: var(--space-xxl);
+}
+/* ================= */
+/* TRANSACTION HISTORY */
+/* ================= */
+.transaction-card {
+  position: relative;
+  padding: var(--space-lg);
+  border-radius: var(--radius-lg);
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+  color: var(--text-primary);
+  transition: all var(--transition-normal);
+}
+
+.transaction-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(52, 152, 219, 0.3); /* primary rgba */
+}
+
+/* Subtle pattern overlay */
+.transaction-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(
+    30deg,
+    rgba(255, 255, 255, 0.02) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.02) 50%,
+    rgba(255, 255, 255, 0.02) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 8px 8px;
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.transaction-card h3 {
+  margin-top: 0;
+  margin-bottom: var(--space-md);
+  color: var(--accent);
+  font-size: 1.25rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: var(--space-sm);
+}
+
+.transaction-card p {
+  margin: var(--space-xs) 0;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+.transaction-card p strong {
+  font-size: 1.1rem;
+  color: var(--accent);
+  display: block;
+  margin: var(--space-sm) 0;
+}
+
+/* Transaction status colors */
+.transaction-status.sold {
+  color: var(--danger);
+}
+
+.transaction-status.available {
+  color: var(--success);
+}
+
+.transaction-status.pending {
+  color: var(--warning);
+}
+
+/* Seller/Owner info with indicator */
+.transaction-card p:nth-of-type(3),
+.transaction-card p:nth-of-type(4) {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-xs);
+  word-break: break-all;
+}
+
+/* Transaction status indicator */
+.transaction-card p:last-of-type {
+  margin-top: auto;
+  padding-top: var(--space-sm);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+/* Status indicator dot */
+.transaction-card p:last-of-type::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--success);
+  margin-right: var(--space-xs);
+}
+
+.transaction-card p:last-of-type:contains('Sold')::before {
+  background-color: var(--danger);
+}
+.transaction-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  margin-top: var(--space-lg);
+}
+
+/* ================= */
+/* TRANSACTION STATUS */
+/* ================= */
+.transaction-status {
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+
+
+/* Empty state messaging */
+.empty-state {
+  text-align: center;
+  padding: var(--space-xl);
+  background: var(--card-bg);
+  border-radius: var(--radius-lg);
+  margin: var(--space-xl) auto;
+  max-width: 500px;
+  border: 1px dashed var(--border);
+}
+
+.empty-state p {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+}
+
+/* ================= */
+/* RESPONSIVE ADJUSTMENTS */
+/* ================= */
+@media (max-width: 768px) {
+  .topbar {
+    flex-direction: column;
+    padding: var(--space-md);
+  }
+  
+  .topbar h1 {
+    margin-bottom: var(--space-sm);
+  }
+  
+  .topbar > div {
+    align-items: center;
+    margin-top: var(--space-sm);
+  }
+  
+  .topbar p {
+    text-align: center;
+  }
+  
+  nav {
+    justify-content: center;
+    margin: var(--space-sm) 0;
+  }
+  
+  .product-list {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: var(--space-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .app-container {
+    padding: var(--space-sm);
+  }
+  
+  .form-card,
+  .product-card {
+    padding: var(--space-md);
+  }
+  
+  .product-list {
+    grid-template-columns: 1fr;
+  }
+  
+  h1 { font-size: 1.5rem; }
+  h2 { font-size: 1.3rem; }
+  
+  .connect-button,
+  .disconnect-button {
+    width: 100%;
+  }
+}
+
+/* ================= */
+/* DARK MODE OPTIMIZATION */
+/* ================= */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* ================= */
+/* ADVANCED ETHEREUM-SPECIFIC STYLING */
+/* ================= */
+/* ETH Price Highlight */
+.product-card p strong::before {
+  content: '⟠ ';
+  font-size: 0.95rem;
+}
+
+/* Ethereum address truncation */
+.truncate-address {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+/* Product Id Badge */
+.product-card::before {
+  content: 'ID: ' attr(data-id);
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  background: rgba(0, 0, 0, 0.2);
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+.form-card:hover {
+    transform: translateY(-2px); /* Slightly less dramatic */
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2); /* Softer shadow */
+}
+.modal {
+    z-index: var(--z-modal); /* Ensures modal appears on top of other content */
+}
+.toast {
+    z-index: var(--z-toast); /* Toasts appear above most elements */
+}

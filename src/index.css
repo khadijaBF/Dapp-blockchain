@@ -1,0 +1,193 @@
+/* ================= */
+/* RESETS AND NORMALIZATION */
+/* ================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ================= */
+/* ACCESSIBILITY */
+/* ================= */
+/* Better focus styles for accessibility */
+:focus-visible {
+  outline: 3px solid rgba(52, 152, 219, 0.8);
+  outline-offset: 2px;
+}
+
+/* Motion reduction for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* High contrast mode improvements */
+@media (forced-colors: active) {
+  .product-card,
+  .form-card,
+  button {
+    border: 1px solid CanvasText;
+  }
+}
+
+/* ================= */
+/* UTILITY CLASSES */
+/* ================= */
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-left { text-align: left; }
+
+.mt-sm { margin-top: 0.5rem; }
+.mt-md { margin-top: 1rem; }
+.mt-lg { margin-top: 1.5rem; }
+.mb-sm { margin-bottom: 0.5rem; }
+.mb-md { margin-bottom: 1rem; }
+.mb-lg { margin-bottom: 1.5rem; }
+
+.p-sm { padding: 0.5rem; }
+.p-md { padding: 1rem; }
+.p-lg { padding: 1.5rem; }
+
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.gap-sm { gap: 0.5rem; }
+.gap-md { gap: 1rem; }
+.gap-lg { gap: 1.5rem; }
+
+.w-full { width: 100%; }
+.h-full { height: 100%; }
+
+/* ================= */
+/* CUSTOM SCROLLBAR */
+/* ================= */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* ================= */
+/* ANIMATIONS */
+/* ================= */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(52, 152, 219, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0); }
+}
+
+/* Apply animations to elements */
+.app-container {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.product-card {
+  animation: slideUp 0.5s ease-out;
+  animation-fill-mode: both;
+}
+
+/* Stagger product card animations */
+.product-list .product-card:nth-child(1) { animation-delay: 0.1s; }
+.product-list .product-card:nth-child(2) { animation-delay: 0.2s; }
+.product-list .product-card:nth-child(3) { animation-delay: 0.3s; }
+.product-list .product-card:nth-child(4) { animation-delay: 0.4s; }
+.product-list .product-card:nth-child(5) { animation-delay: 0.5s; }
+.product-list .product-card:nth-child(n+6) { animation-delay: 0.6s; }
+
+/* ================= */
+/* PRINT STYLES */
+/* ================= */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  
+  .app-container {
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+  
+  .topbar,
+  .connect-button,
+  .disconnect-button,
+  button {
+    display: none !important;
+  }
+  
+  .product-list {
+    display: block !important;
+  }
+  
+  .product-card,
+  .form-card {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    border: 1px solid #ddd !important;
+    box-shadow: none !important;
+    margin-bottom: 1rem !important;
+    background: white !important;
+    color: black !important;
+  }
+  
+  .product-card h3 {
+    color: black !important;
+  }
+}
